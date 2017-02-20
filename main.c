@@ -1,8 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include <stdbool.h>
-
 // read/write to UART using FILE*
 #include <stdio.h>
 #include "avr_uart.h"
@@ -14,9 +12,9 @@ void setup_relays() {
 
 #define RELAY_MIN 1
 #define RELAY_MAX 5
-bool setRelayState(int8_t relay, bool state) {
+uint8_t setRelayState(int8_t relay, uint8_t state) {
     if ((relay < RELAY_MIN) || (relay > RELAY_MAX)) {
-        return false;
+        return 0;
     }
 
     if (state) {
@@ -26,15 +24,15 @@ bool setRelayState(int8_t relay, bool state) {
         // set bit for STANDBY state
         PORTC |= _BV(relay);
     }
-    return true;
+    return 1;
 }
 
-bool getRelayState(int relay, bool* state) {
+uint8_t getRelayState(int relay, uint8_t */*inout*/ state) {
     if ((relay < RELAY_MIN) || (relay > RELAY_MAX)) {
-        return false;
+        return 0;
     }
-    *state = (bool)((PORTC & _BV(relay)));
-    return true;
+    *state = PORTC & _BV(relay);
+    return 1;
 }
 
 int main(void) {

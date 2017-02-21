@@ -1,0 +1,22 @@
+# To be used with Arduino.mk : https://github.com/sudar/Arduino-Makefile
+# allow 'make upload' for flashing
+
+# avr_uart is aimed to become a library in my USER_LIB_PATH, keep commented as provided in main source tree
+##ARDUINO_LIBS = avr_uart
+
+# setup your board if needed
+BOARD_TAG    = uno
+
+# setup your port if needed
+MONITOR_PORT = /dev/ttyACM0
+
+# don't care about USER_LIB_PATH (no lib is used)
+#USER_LIB_PATH = /home/skz81/Sources/Perso/Arduino/libs/
+
+CFLAGS = -Os -std=gnu99
+
+
+# ../!\ /!\ /!\ MODIFY THE FOLLOWING TO POINT YOUR OWN INSTALLATION /!\ /!\ /!\..
+include /home/skz81/Sources/Perso/Arduino/Arduino-Makefile/Arduino.mk
+
+

@@ -1,0 +1,24 @@
+# this Makefile should compile the project out-of-box, provided you have make and avr-gcc installed
+
+OBJCOPY=avr-objcopy
+CC=avr-gcc
+LD=avr-ld
+
+CFLAGS=-mmcu=atmega328p -DF_CPU=16000000 -DBAUD=115200 -flto -Os
+LDFLAGS=-mmcu=atmega328p -Wl,--gc-sections -flto -fuse-linker-plugin
+
+TARGET=oPS_proto
+
+OBJECTS=main.o avr_uart.o
+
+${TARGET}.hex : ${TARGET}.elf
+	${OBJCOPY} -j .eeprom --set-section-flags=.eeprom='alloc,load' --no-change-warnings --change-section-lma .eeprom=0 -O ihex ${TARGET}.elf ${TARGET}.eep
+	${OBJCOPY} -O ihex -R .eeprom ${TARGET}.elf ${TARGET}.hex
+
+${TARGET}.elf : ${OBJECTS}
+	${CC} ${LDFLAGS} -o ${TARGET}.elf ${OBJECTS}
+
+#%.c : %.o is implicit
+
+clean :
+	rm -rf ${TARGET}.* ${OBJECTS}

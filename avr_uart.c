@@ -1,6 +1,15 @@
 #include <avr/io.h>
 #include <stdio.h>
 
+
+// ----------- UART parameters ----------
+
+// NOTE : The compilation warning issued by setbaud.h is because the tolerance of baud rate actually acheived is over 102% the wanted 115200.
+// But I always worked reliably with arduino boards ; from Linux as well as Windows, on multiple years, at this baud rate, then.. This warning is pretty safe to ignore.
+
+// THOUGH, you still can override those value from the command line (cf makefiles).
+
+
 #ifndef F_CPU
 #define F_CPU 16000000UL
 #endif
@@ -8,6 +17,8 @@
 #ifndef BAUD
 #define BAUD 115200
 #endif
+
+// setbaud.h issues warnings, ;) but also defines UBRR*_VALUE, used in avr_uart_init
 #include <util/setbaud.h>
 
 /* http://www.cs.mun.ca/~rod/Winter2007/4723/notes/serial/serial.html */
@@ -48,6 +59,10 @@ char avr_uart_getchar_echo(FILE *stream) {
 }
 
 
+
+
+// XXX TODO : FIX THIS warning:
+// initialization from incompatible pointer type [-Wincompatible-pointer-types]
 
 FILE avr_uart_output = FDEV_SETUP_STREAM(avr_uart_putchar, NULL, _FDEV_SETUP_WRITE);
 FILE avr_uart_input = FDEV_SETUP_STREAM(NULL, avr_uart_getchar, _FDEV_SETUP_READ);

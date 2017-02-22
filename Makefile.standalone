@@ -1,11 +1,15 @@
 # this Makefile should compile the project out-of-box, provided you have make and avr-gcc installed
 
+F_CPU ?= 16000000
+BAUD ?= 115200
+MCU ?= atmega328p
+
 OBJCOPY=avr-objcopy
 CC=avr-gcc
 LD=avr-ld
 
-CFLAGS=-mmcu=atmega328p -DF_CPU=16000000 -DBAUD=115200 -flto -Os
-LDFLAGS=-mmcu=atmega328p -Wl,--gc-sections -flto -fuse-linker-plugin
+CFLAGS=-mmcu=${MCU} -DF_CPU=${F_CPU} -DBAUD=${BAUD} -flto -Os
+LDFLAGS=-mmcu=${MCU} -Wl,--gc-sections -flto -fuse-linker-plugin
 
 TARGET=oPS_proto
 

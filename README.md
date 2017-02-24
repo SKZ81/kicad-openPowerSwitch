@@ -29,8 +29,6 @@ Anyway, I bet it is easy to add the parameters for a custom board into the local
 
 ### Note : 
 Standalone makefile does not provide anyway to flash the .hex
-I assume you're grown up, Dude, even further if you don't use an 'Arduino' board.
-________________________________________
-<< Your pal is avrdude, AVR's Dude... >>
-                               ... SKZ81
+I assume if you prefer using standalone Makefiles ; it means you're "grown up", AVR's Dude, so just use avrdude, as usual ^^
+
 

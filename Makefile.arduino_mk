@@ -1,0 +1,33 @@
+# ../!\ /!\ /!\ please configure your install at the bottom of the file /!\ /!\ /!\..
+
+# To be used with Arduino.mk : https://github.com/sudar/Arduino-Makefile
+# allow 'make upload' for flashing and other features...
+
+
+BAUD ?= 115200
+
+# please :
+# $ cd $USER_LIB_PATH
+# $ git clone clone https://github.com/SKZ81/AVR-ENC28J60-Examples
+# $ mv AVR-ENC28J60-Examples ENC228J60
+# Sorry for the inconvinience, for another time I'll check if I could remane this repo, even if forked...
+ARDUINO_LIBS = ENC28J60
+
+CFLAGS = -Os -std=gnu99 -DBAUD=${BAUD}
+
+# ==== OPTIONAL SETUP ====
+
+# setup your board if needed
+BOARD_TAG    = uno
+
+# setup your port if needed
+MONITOR_PORT = /dev/ttyACM0
+
+
+# ../!\ MODIFY THE FOLLOWING TO POINT YOUR OWN INSTALLATION /!\..
+
+USER_LIB_PATH = /home/skz81/Sources/Perso/Arduino/libs/
+
+include /home/skz81/Sources/Perso/Arduino/Arduino-Makefile/Arduino.mk
+
+
